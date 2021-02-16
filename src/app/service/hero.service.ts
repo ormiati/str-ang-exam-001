@@ -1,54 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Hero } from '../model/hero';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
+ 
+  apiUrl: string = 'http://localhost:3000/product'; 
 
-  list : Hero []=
-  [
-    {
-      id: 1,
-      name: "Batman",
-      superPower: "Blackpower",
-      address: "Gothem"
-    }, 
-    {
-      id: 2,
-      name: "Superman",
-      superPower: "Flying",
-      address: "New York"
-    },
-    {
-      id: 3,
-      name: "Aquaman",
-      superPower: "Marmaid",
-      address: "Ocean"
-    },
-    {
-      id: 4,
-      name: "Hulk",
-      superPower: "Greenpower",
-      address: "Philadelphia"
-    },
-    {
-      id: 5,
-      name: "Aintman",
-      superPower: "Nanosize",
-      address: "San Francisco"
-    },
-    {
-      id: 6,
-      name: "Sheldon Cooper",
-      superPower: "Big Kid",
-      address: "Los Angeles"
-    },
-  ];
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  constructor() { }
-
-  getAll(): Hero[] {
-    return this.get(Hero)
+  getAll(): Observable<Hero[]>{
+    return this.http.get<Hero[]>(this.apiUrl);
   }
 }
